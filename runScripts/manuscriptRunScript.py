@@ -33,18 +33,18 @@ def getTestSet(self, splitNumber):
     x, y = resample(xPossible,yPossible, replace=True, random_state=splitNumber)
     return x, y
 
-trainData = Data("../../NEW_matrices/entire_2016/eligible_ever/",
+trainData = Data("../data/2016/eligible_ever/",
         ["features.npy", "labels.npy", ("eligible_mask.npy", "bool"), "dict.npy", ("censor_mask.npy", "bool")],
         "Patients from Jan - March 2016 that don't develop ARDS before 6 hours and meet risk stratification eligibility criteria within first 7 hospital days")
 
-testData = Data("../../NEW_matrices/entire_2017/eligible_ever/",
+testData = Data("../data/2017/eligible_ever/",
                 ["features.npy", "labels.npy", ("eligible_mask.npy", "bool"), "dict.npy", ("censor_mask.npy", "bool")],
                 "Patients from Jan - March 2017 that don't develop ARDS before 6 hours and meet risk stratification eligibility criteria after being observed for at least 6 hours")
 
 
 p = Pipeline(logisticRegressionPipeline.newPipe, "Most recent version of logistic regression pipeline")
 
-savePath = "/data/dzeiberg/ards/experiments/"
+savePath = "../data/experiments/"
 nIterations = 1000
 jobs = []
 jobs.append(Job(trainData, testData, getTrainVal, getTestSet, nIterations, "l2", p, savePath, "running pipeline with L2 regularization"))
