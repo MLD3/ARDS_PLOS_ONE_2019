@@ -1,15 +1,11 @@
-%matplotlib inline
 import numpy as np
-from IPython.display import display, Math, Latex,
 import matplotlib.pyplot as plt
 from sklearn.utils import resample
 import pandas as pd
 from tqdm import tqdm
 import math
-from copy import deepcopy
 import operator
 import xgboost as xgb
-import warnings
 from sklearn.model_selection import LeaveOneOut, train_test_split, StratifiedKFold, GridSearchCV, RepeatedStratifiedKFold, RandomizedSearchCV
 from sklearn.metrics import roc_auc_score
 
@@ -30,6 +26,7 @@ def load_matrices():
 
 def param_search(X, Y):
     rskf = RepeatedStratifiedKFold(n_splits=5 n_repeats=5 random_state=4)
+    final_params = {}
 
     # 1. Search over n_estimators
     xgb_class = xgb.XGBClassifier(learning_rate=0.02, objective='binary:logistic', silent=True, nthread=1)
